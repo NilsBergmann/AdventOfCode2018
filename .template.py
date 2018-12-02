@@ -12,6 +12,7 @@ if __name__ == "__main__":
     __DAY = None
     if(__DAY is None):
         print("Please remember to set the day.")
-    DATA = get_data(__COOKIE, __DAY, __YEAR).split("\n")
-    print(f"Task 1: {solveA(DATA)}")
-    print(f"Task 2: {solveB(DATA)}")
+    else:
+        DATA = get_data(__COOKIE, __DAY, __YEAR).split("\n")
+        print(f"Task 1: {solveA(DATA)}")
+        print(f"Task 2: {solveB(DATA)}")
