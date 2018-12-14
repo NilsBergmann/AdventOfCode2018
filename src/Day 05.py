@@ -1,12 +1,28 @@
-def solveA(data):
-    letters = list(data[0])
-    last = ''
-    for a, b in zip(letters, letters[1:]):
-        print(a,b)
+from aocd import get_data
 
+def solveA(data:str):
+    return len(completeReaction(data))
 
-def solveB(data):
-    return(Exception)
+def solveB(data:str):
+    letters = set([letter.upper() for letter in data])
+    lengths = []
+    for letter in letters:
+        trimmed = data.replace(letter, "").replace(letter.lower(), "")
+        lengths.append(solveA(trimmed))
+    return min(lengths)
+
+def react(a:chr,b:chr)->bool:
+    return a.upper() == b.upper() and not a == b
+
+def completeReaction(data)->list:
+    stack = ["$"] #Init with one element to simplify loop
+    for letter in data:
+        if react(letter, stack[-1]):
+            stack.pop()
+        else:
+            stack.append(letter)
+    return stack[1:]
+
 
 if __name__ == "__main__":
     # Get Data
@@ -18,5 +34,5 @@ if __name__ == "__main__":
         print("Please remember to set the day.")
     else:
         DATA = get_data(__COOKIE, __DAY, __YEAR).split("\n")
-        print(f"Task 1: {solveA(DATA)}")
-        print(f"Task 2: {solveB(DATA)}")
+        print(f"Task 1: {solveA(DATA[0].strip())}")
+        print(f"Task 2: {solveB(DATA[0].strip())}")
